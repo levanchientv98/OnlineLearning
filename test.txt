@@ -1,0 +1,4 @@
+Lam : login, signup
+Chien: Home Page khong footter
+Ty: about us, pricing, help, footter
+nhat: dashboard 
