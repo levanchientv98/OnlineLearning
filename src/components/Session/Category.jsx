@@ -4,7 +4,7 @@ import styled from "styled-components";
 // import imgCourse from "assets/imageHome/Course-1.svg";
 import avatarTeacher from "assets/imageHome/avatar-teacher.svg";
 import { NavLink } from "react-router-dom";
-import { Spin, Skeleton } from "antd";
+import { Spin, Skeleton, Pagination } from "antd";
 import { URLApi } from "api/urlApi";
 
 const CategoryStyled = styled.div`
@@ -87,6 +87,18 @@ const PopularCategory = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Trạng thái loading
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // Calculate the index of the first and last item to be displayed on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     // Gọi API và cập nhật dữ liệu vào trạng thái 'data'
     fetchData();
@@ -94,7 +106,7 @@ const PopularCategory = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${URLApi}/api/v1/course`);
+      const response = await fetch(`${URLApi}api/v1/course`);
       const jsonData = await response.json();
       setData(jsonData);
       setLoading(false); // Kết thúc trạng thái loading khi dữ liệu đã được lấy về
@@ -139,52 +151,12 @@ const PopularCategory = () => {
         </div>
 
         <div className="list-course">
-          {/* {data.map((item) => (
-          
-             <Course key={item.id}
-              img={imgCourse}
-              title={item.courseName}
-              ratting={item.rating_ratingPoint}
-              avatarTeacher={avatarTeacher}
-              teacherName={item.user_username}
-            >
-            </Course>
-           
-          ))} */}
-          {/* <div>
-            {data ? (
-              <ul>
-                {data.map((item) => (
-                  <li key={item.id}>{item.courseName}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>Loading data...</p>
-            )}
-          </div> */}
-          {/* 
-          {data.map((item) => {
-            if (item.user_user_type == "teacher") {
-              return (
-                <NavLink to={`/course-detail/${item.courseDetail_id}`}>
-
-                  <Course key={item.id}
-                    img={item.img}
-                    title={item.courseName}
-                    ratting={item.rating_ratingPoint}
-                    avatarTeacher={avatarTeacher}
-                    teacherName={item.user_username}
-                  />
-                </NavLink>
-              )
-            }
-          })} */}
           {loading ? (
             <Skeleton />
           ) : (
             <>
-              {data && Array.isArray(data) ? (
-                data.map((item) => {
+              {currentData && Array.isArray(currentData) ? (
+                currentData.map((item) => {
                   if (item.user_user_type === "teacher") {
                     return (
                       <NavLink to={`/course-detail/${item.courseDetail_id}`}>
@@ -206,50 +178,14 @@ const PopularCategory = () => {
               )}
             </>
           )}
-
-          {/* <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course>
-          <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course>
-          <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course>
-          <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course>
-          <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course>
-          <Course
-            img={imgCourse}
-            title={"Web design and development Crash course 2022"}
-            ratting={"4.8"}
-            avatarTeacher={avatarTeacher}
-            teacherName={"Diallo Liam"}
-          ></Course> */}
         </div>
+        <Pagination
+          current={currentPage}
+          total={data.length}
+          pageSize={itemsPerPage}
+          onChange={handlePageChange}
+          style={{ textAlign: "center", marginTop: "20px" }}
+        />
       </div>
     </CategoryStyled>
   );

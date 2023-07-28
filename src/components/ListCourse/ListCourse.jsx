@@ -12,9 +12,9 @@ import Paper from "@mui/material/Paper";
 import SidebarTutor from "components/SidebarSessions";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+// import { useFormControl } from "@mui/material/FormControl";
 import axios from "axios";
 import { URLApi } from "api/urlApi";
-
 import {
   Pagination,
   TextField,
@@ -106,7 +106,7 @@ const ModalAddNewCourse = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Make a request to the API to add the user
-    axios.post("${URLApi}/api/v1/course", {
+    axios.post(`${URLApi}api/v1/course`, {
       courseName,
       courseType,
       user_id: idUserLong,
@@ -195,9 +195,9 @@ const ListCourse = () => {
     setOpenModalDetail(false);
   };
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
+  // const handleModalOpen = () => {
+  //   setIsModalOpen(true);
+  // };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -231,9 +231,7 @@ const ListCourse = () => {
   // Hàm lấy dữ liệu từ API (thay đổi URL API tùy theo dự án của bạn)
   const fetchUsers = async () => {
     try {
-      const response = await fetch(
-        `${URLApi}/api/v1/course/byUserId/${idUser}`
-      );
+      const response = await fetch(`${URLApi}api/v1/course/byUserId/${idUser}`);
       const data = await response.json();
       setUsers(data); // Lưu dữ liệu người dùng vào state
       setLoading(false); // Kết thúc trạng thái loading khi dữ liệu đã được lấy về
@@ -244,7 +242,7 @@ const ListCourse = () => {
   };
   const handleDeleteCourse = async (id) => {
     try {
-      await axios.delete(`${URLApi}/api/v1/course/${id}`);
+      await axios.delete(`${URLApi}api/v1/course/${id}`);
       // Sau khi xóa thành công, cập nhật lại danh sách khóa học
       fetchUsers();
     } catch (error) {
@@ -270,7 +268,7 @@ const ListCourse = () => {
   };
   const handleUpdateCourse = async () => {
     try {
-      await axios.put(`${URLApi}/api/v1/course/update`, courseToUpdate);
+      await axios.put(`${URLApi}api/v1/course/update`, courseToUpdate);
       // Sau khi cập nhật thành công, đóng modal và cập nhật lại danh sách khóa học
       handleCloseModal();
       fetchUsers();
@@ -300,7 +298,7 @@ const ListCourse = () => {
 
     const handleAddCourseDetail = async () => {
       try {
-        await axios.post("${URLApi}/api/v1/courseDetail", newCourseDetail);
+        await axios.post(`${URLApi}api/v1/courseDetail`, newCourseDetail);
         // Thêm mới thành công, đóng modal và reset form
         handleClose();
         toast.success("Successfully Created Detail Course");

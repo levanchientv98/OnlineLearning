@@ -106,7 +106,7 @@ const Reset = () => {
       try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("id");
-        const userDataUrl = `${URLApi}/api/v1/user/${userId}`; // Thay đổi URL theo endpoint
+        const userDataUrl = `${URLApi}api/v1/user/${userId}`; // Thay đổi URL theo endpoint
 
         const userDataResponse = await axios.get(userDataUrl, {
           headers: {
@@ -121,7 +121,7 @@ const Reset = () => {
             password: values.password,
           };
 
-          const apiUrl = `${URLApi}/api/v1/auth/reset-password`;
+          const apiUrl = `${URLApi}api/v1/auth/reset-password`;
           const response = await axios.post(apiUrl, data);
           if (response.status === 200) {
             // Xử lý khi đăng ký thành công

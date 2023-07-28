@@ -191,7 +191,7 @@ const Dashboardmain = () => {
   useEffect(() => {
     const getUserData = async (userId) => {
       try {
-        const apiUrl = `${URLApi}/api/v1/user/${userId}`; // Replace with your API endpoint
+        const apiUrl = `${URLApi}api/v1/user/${userId}`; // Replace with your API endpoint
         const token = localStorage.getItem("token"); // Assuming the token key is stored in the "token" key in localStorage
 
         const response = await axios.get(apiUrl, {

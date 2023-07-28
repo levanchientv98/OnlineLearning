@@ -278,7 +278,7 @@ const CourseDetail = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${URLApi}/api/v1/courseDetail/${id}`);
+      const response = await axios.get(`${URLApi}api/v1/courseDetail/${id}`);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -298,7 +298,7 @@ const CourseDetail = () => {
     try {
       if (!enrolled) {
         // Step 1: Gọi API Post enroll
-        const apiUrl = `${URLApi}/api/v1/enroll`;
+        const apiUrl = `${URLApi}api/v1/enroll`;
         const enrollResponse = await axios.post(apiUrl, {
           user_user_id: userId,
           course_course_id: id,
@@ -397,7 +397,9 @@ const CourseDetail = () => {
                     )}
                   </div>
                 ) : (
-                  <button className="btn-enroll">Enroll</button>
+                  <Link to="/student-login">
+                    <button className="btn-enroll">Enroll</button>
+                  </Link>
                 )}
               </div>
             </div>

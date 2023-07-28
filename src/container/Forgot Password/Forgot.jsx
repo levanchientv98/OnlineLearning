@@ -105,7 +105,7 @@ const Forgot = () => {
       // Hàm này được gọi khi người dùng nhấn nút "Sign Up" hoặc submit form
       // Trong đây, bạn có thể gọi hàm handleRegister() để xử lý việc đăng ký
       try {
-        const apiUrl = `${URLApi}/api/v1/auth/reset-password/check-student`; // Thay đổi URL theo endpoint của
+        const apiUrl = `${URLApi}api/v1/auth/reset-password/check-student`; // Thay đổi URL theo endpoint của
 
         const data = {
           email: values.email,

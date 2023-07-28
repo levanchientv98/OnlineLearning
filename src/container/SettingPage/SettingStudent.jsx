@@ -255,7 +255,7 @@ const SettingStudent = () => {
     // Fetch user data from the API
     const fetchUserData = async () => {
       try {
-        const userDataUrl = `${URLApi}/api/v1/user/${id}`; // Thay đổi URL theo endpoint của bạn
+        const userDataUrl = `${URLApi}api/v1/user/${id}`; // Thay đổi URL theo endpoint của bạn
         const userDataResponse = await axios.get(userDataUrl, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -294,7 +294,7 @@ const SettingStudent = () => {
 
   const handleSave = async (userData) => {
     try {
-      const urlEditProfile = `${URLApi}/api/v1/auth/edit-profile`;
+      const urlEditProfile = `${URLApi}api/v1/auth/edit-profile`;
       const token = localStorage.getItem("token");
       const updatedUserData = {
         username: userData.studentUsername,
@@ -369,7 +369,7 @@ const SettingStudent = () => {
       const formData = new FormData();
       formData.append("avatar", file);
 
-      const urlEditProfile = `${URLApi}/api/v1/auth/edit-profile`;
+      const urlEditProfile = `${URLApi}api/v1/auth/edit-profile`;
       const token = localStorage.getItem("token");
 
       // Make the API call to update the avatar

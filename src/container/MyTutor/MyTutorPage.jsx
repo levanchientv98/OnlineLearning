@@ -117,7 +117,7 @@ const MyTutorPage = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `${URLApi}/api/v1/user/userType?userType=teacher`
+        `${URLApi}api/v1/user/userType?userType=teacher`
       );
       setUsers(response.data);
     } catch (error) {

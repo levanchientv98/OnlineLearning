@@ -194,7 +194,7 @@ const StartSessions = () => {
   const fetchVideo = async () => {
     try {
       const reponse = await axios.get(
-        `${URLApi}/api/v1/video/byCourseId/${courseId}`
+        `${URLApi}api/v1/video/byCourseId/${courseId}`
       );
       if (reponse.status === 200) {
         console.log(reponse.data);

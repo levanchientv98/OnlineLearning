@@ -219,7 +219,7 @@ const SearchMain = () => {
     if (event.key === "Enter") {
       try {
         const response = await fetch(
-          `${URLApi}/api/v1/course/search?query=${searchTerm}`
+          `${URLApi}api/v1/course/search?query=${searchTerm}`
         );
         const data = await response.json();
         setSearchResults(data);

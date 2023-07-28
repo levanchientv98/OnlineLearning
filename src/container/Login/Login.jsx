@@ -197,7 +197,7 @@ const Login = () => {
     e.preventDefault();
     try {
       // Step 1: Gọi API login
-      const loginUrl = `${URLApi}/api/v1/auth/login`; // Thay đổi URL theo endpoint của bạn
+      const loginUrl = `${URLApi}api/v1/auth/login`; // Thay đổi URL theo endpoint của bạn
       const loginResponse = await axios.post(loginUrl, {
         username: username,
         password: password,
@@ -211,7 +211,7 @@ const Login = () => {
         localStorage.setItem("id", loginData.id);
 
         // Step 3: Gọi API để lấy thông tin người dùng (phân quyền)
-        const userDataUrl = `${URLApi}/api/v1/user/${loginData.id}`; // Thay đổi URL theo endpoint của bạn
+        const userDataUrl = `${URLApi}api/v1/user/${loginData.id}`; // Thay đổi URL theo endpoint của bạn
         const token = localStorage.getItem("token");
 
         const userDataResponse = await axios.get(userDataUrl, {
@@ -306,7 +306,7 @@ const Login = () => {
             exact="true"
             active="active"
           >
-            <p>Or Sign Up</p>
+            <p>Or Sign In</p>
           </NavLink>
           <img src={line} alt="line" />
         </div>
