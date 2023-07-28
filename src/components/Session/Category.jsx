@@ -6,7 +6,6 @@ import avatarTeacher from "assets/imageHome/avatar-teacher.svg";
 import { NavLink } from "react-router-dom";
 import { Spin, Skeleton, Pagination } from "antd";
 import { URLApi } from "api/urlApi";
-import axios from "axios";
 
 const CategoryStyled = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
@@ -107,9 +106,7 @@ const PopularCategory = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${URLApi}api/v1/course`, {
-        mode: "no-cors",
-      });
+      const response = await fetch(`${URLApi}api/v1/course`);
       const jsonData = await response.json();
       setData(jsonData);
       setLoading(false); // Kết thúc trạng thái loading khi dữ liệu đã được lấy về
