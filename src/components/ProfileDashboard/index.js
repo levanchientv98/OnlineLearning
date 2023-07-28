@@ -1,2 +1,3 @@
 import { ProfileDashboard } from "./ProfileDashboard";
-export { ProfileDashboard }
+import { ProfileDashboardforTutor } from "./ProfileDashboardforTutor";
+export { ProfileDashboard, ProfileDashboardforTutor }

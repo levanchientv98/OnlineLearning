@@ -21,25 +21,25 @@ const CarouselTeacher = () => {
     },
     {
       avatarTeacher: avatarTeacher1,
-      teacherName: "John",
+      teacherName: "Eric Ervab",
       review:
         "“I love teaching because it’s so satisfying when you see that little light bulb go off plus my co-workers are great.”",
     },
     {
       avatarTeacher: avatarTeacher2,
-      teacherName: "John",
+      teacherName: "Jessica Deakon",
       review:
         "“I love teaching because it’s so satisfying when you see that little light bulb go off plus my co-workers are great.”",
     },
     {
       avatarTeacher: avatarTeacher3,
-      teacherName: "John",
+      teacherName: "Rashab Liam",
       review:
         "“I love teaching because it’s so satisfying when you see that little light bulb go off plus my co-workers are great.”",
     },
     {
       avatarTeacher: avatarTeacher4,
-      teacherName: "John",
+      teacherName: "Tes Steven",
       review:
         "“I love teaching because it’s so satisfying when you see that little light bulb go off plus my co-workers are great.”",
     },

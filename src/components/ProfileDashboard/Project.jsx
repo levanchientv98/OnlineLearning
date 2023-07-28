@@ -235,7 +235,7 @@ const Project = ({ item }) => {
             <ModalStyle>
                 <div className="header">
                     <div className="header-main">
-                        <img src={Imglogo} alt='' />
+                        <img src={userDetails?.avatar} alt='' />
                         <div className="namee">
                             <div className='abc'>
                                 <p id="name">{userDetails?.fullname}</p>

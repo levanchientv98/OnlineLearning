@@ -39,7 +39,7 @@ const ListCourseStyle = styled.div`
 
   .title {
     width: 95%;
-    border-bottom: 1px solid #edebeb;
+    margin-bottom: 20px;
     h2 {
       margin: 0;
       padding: 52px 0 48px 0;
@@ -48,6 +48,20 @@ const ListCourseStyle = styled.div`
       line-height: 48px;
       letter-spacing: 0em;
       color: #2e2c2c;
+    }
+  }
+
+  .list-course {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .MuiPaper-root {
+      margin-bottom: 20px;
+    }
+    .MuiTableCell-root {
+      font-size: 0.985rem;
+      line-height: 2.3;
     }
   }
 `;
@@ -73,13 +87,19 @@ const styleModal = {
   },
 };
 
-const ModalSytle = styled.div`
+const ModalStyled = styled.div`
   .namee {
     width: 500px;
   }
   .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
     width: 200px;
     border-radius: 50px;
+  }
+  .ant-btn {
+    height: 42px;
+    span {
+      font-weight: 500;
+    }
   }
 `;
 
@@ -121,9 +141,12 @@ const ModalAddNewCourse = () => {
     setOpen(false);
   };
   return (
-    <ModalSytle>
-      <Button onClick={handleOpen}>ADD NEW COURSE</Button>
+    <ModalStyled>
+      <Button onClick={handleOpen} type="primary">
+        ADD NEW COURSE
+      </Button>
       <Modal
+        className="table-styled"
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -133,7 +156,10 @@ const ModalAddNewCourse = () => {
           <ToastContainer />
 
           <h2>ADD NEW COURSE</h2>
-          <form>
+          <form
+            className="add-course"
+            style={{ display: "flex", flexDirection: "column", gap: "30px" }}
+          >
             <TextField
               sx={styleInput}
               className="namee"
@@ -151,11 +177,11 @@ const ModalAddNewCourse = () => {
               variant="outlined"
               sx={{ marginBottom: "10px" }}
             >
-              <InputLabel>Loại khóa học</InputLabel>
+              <InputLabel>Course Type</InputLabel>
               <Select
                 value={courseType}
                 onChange={handleCourseTypeChange}
-                label="Loại khóa học"
+                label="Course Type"
               >
                 <MenuItem value="Programing">Programing</MenuItem>
                 <MenuItem value="Design">Design</MenuItem>
@@ -165,18 +191,13 @@ const ModalAddNewCourse = () => {
               </Select>
             </FormControl>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-            >
-              Thêm mới
+            <Button type="primary" variant="contained" onClick={handleSubmit}>
+              Add New
             </Button>
           </form>
         </Box>
       </Modal>
-    </ModalSytle>
+    </ModalStyled>
   );
 };
 
@@ -186,6 +207,15 @@ const ListCourse = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); //modal update
 
   const [openModalDetail, setOpenModalDetail] = useState(false);
+
+  const [openUploadVideo, setOpenUploadVideo] = useState(false);
+
+  const handleOpenUploadVideo = () => {
+    setOpenUploadVideo(true);
+  };
+  const handleCloseUploadVideo = () => {
+    setOpenUploadVideo(false);
+  };
 
   const handleOpenModalDetail = () => {
     setOpenModalDetail(true);
@@ -303,9 +333,9 @@ const ListCourse = () => {
         handleClose();
         toast.success("Successfully Created Detail Course");
 
-        console.log("Thêm mới chi tiết khóa học thành công!");
+        console.log("Add new course detail sucessfully!");
       } catch (error) {
-        console.error("Lỗi khi thêm mới chi tiết khóa học:", error);
+        console.error("Add new course detail faild:", error);
       }
     };
 
@@ -329,9 +359,9 @@ const ListCourse = () => {
             p: 4,
           }}
         >
-          <h2>Thêm mới chi tiết khóa học</h2>
+          <h2>Add new course detail</h2>
           <TextField
-            label="ID khóa học"
+            label="ID Course"
             variant="outlined"
             fullWidth
             name="course_course_id"
@@ -340,7 +370,7 @@ const ListCourse = () => {
             sx={{ marginBottom: "10px" }}
           />
           <TextField
-            label="Tên chi tiết khóa học"
+            label="Name Course Detail"
             variant="outlined"
             fullWidth
             name="courseDetailName"
@@ -349,7 +379,7 @@ const ListCourse = () => {
             sx={{ marginBottom: "10px" }}
           />
           <TextField
-            label="Mô tả chi tiết khóa học"
+            label="Description course detail"
             variant="outlined"
             fullWidth
             name="description"
@@ -358,7 +388,7 @@ const ListCourse = () => {
             sx={{ marginBottom: "10px" }}
           />
           <TextField
-            label="Mô tả chi tiết khóa học"
+            label="About course detail"
             variant="outlined"
             fullWidth
             name="about"
@@ -371,7 +401,102 @@ const ListCourse = () => {
             color="primary"
             onClick={handleAddCourseDetail}
           >
-            Thêm mới chi tiết khóa học
+            Add new course detail
+          </Button>
+        </Box>
+      </Modal>
+    );
+  };
+
+  //Update video
+  const VideoFormModal = ({ open, handleClose }) => {
+    const [newVideo, setNewVideo] = useState({
+      videoName: "",
+      urlVideo: "",
+      course_course_id: courseToUpdate.id,
+      enroll_enroll_id: "",
+    });
+    console.log("about", newVideo);
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setNewVideo((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    };
+
+    const handleAddVideo = async () => {
+      try {
+        await axios.post(`${URLApi}api/v1/video`, newVideo);
+        // Thêm mới thành công, đóng modal và reset form
+        handleClose();
+        toast.success("Successfully update video");
+      } catch (error) {
+        console.error("Update video faild:", error);
+        toast.error("Failed to update video. Please try again later.");
+      }
+    };
+
+    return (
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          component="form"
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <h2>Update video course</h2>
+          <TextField
+            label="ID Course"
+            variant="outlined"
+            fullWidth
+            name="course_course_id"
+            value={newVideo.course_course_id}
+            onChange={handleChange}
+            sx={{ marginBottom: "10px" }}
+          />
+          <TextField
+            label="ID Enroll"
+            variant="outlined"
+            fullWidth
+            name="enroll_enroll_id"
+            value={newVideo.enroll_enroll_id}
+            onChange={handleChange}
+            sx={{ marginBottom: "10px" }}
+          />
+          <TextField
+            label="Video name"
+            variant="outlined"
+            fullWidth
+            name="videoName"
+            value={newVideo.videoName}
+            onChange={handleChange}
+            sx={{ marginBottom: "10px" }}
+          />
+          <TextField
+            label="URL Vdieo"
+            variant="outlined"
+            fullWidth
+            name="urlVideo"
+            value={newVideo.urlVideo}
+            onChange={handleChange}
+            sx={{ marginBottom: "10px" }}
+          />
+          <Button type="primary" onClick={handleAddVideo}>
+            Update Video
           </Button>
         </Box>
       </Modal>
@@ -390,79 +515,104 @@ const ListCourse = () => {
             <div className="title">
               {" "}
               <h2>LIST COURSE</h2>
+            </div>
+            <div className="list-course">
               <ModalAddNewCourse
                 isOpen={isModalOpen}
                 onClose={handleModalClose}
               />
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left">ID</TableCell>
+                      <TableCell align="left">Course Name</TableCell>
+                      <TableCell align="left">Course Type</TableCell>
+                      <TableCell align="left">Teacher</TableCell>
+                      <TableCell align="left">Rating</TableCell>
+                      <TableCell align="left">Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  {loading ? (
+                    <Skeleton />
+                  ) : (
+                    <TableBody>
+                      {usersOnCurrentPage?.map((user, index) => (
+                        <TableRow
+                          key={user?.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {startIndex + index + 1}
+                          </TableCell>
+                          <TableCell align="left">{user?.courseName}</TableCell>
+                          <TableCell align="left">{user?.courseType}</TableCell>
+                          <TableCell align="left">
+                            {user?.user_username}
+                          </TableCell>
+                          <TableCell align="left">
+                            <Rate allowHalf defaultValue={user?.rate} />
+                          </TableCell>
+                          <TableCell>
+                            <div className="action-btn">
+                              <Button
+                                type="link"
+                                size="large"
+                                onClick={() => handleDeleteCourse(user?.id)}
+                              >
+                                Delete
+                              </Button>
+                              <Button
+                                type="link"
+                                size="large"
+                                onClick={() => handleOpenModal(user)}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                size="large"
+                                type="link"
+                                onClick={handleOpenModalDetail}
+                              >
+                                Create Course Details
+                              </Button>
+                              {/* Modal thêm mới chi tiết khóa học */}
+                              <CourseDetailFormModal
+                                open={openModalDetail}
+                                handleClose={handleCloseModalDetail}
+                              />
+                              <Button
+                                size="large"
+                                type="link"
+                                onClick={handleOpenUploadVideo}
+                              >
+                                Upload video
+                              </Button>
+                              {/* Modal thêm mới chi tiết khóa học */}
+                              <VideoFormModal
+                                open={openUploadVideo}
+                                handleClose={handleCloseUploadVideo}
+                              />
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  )}
+                </Table>
+              </TableContainer>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                shape="rounded"
+                size="large"
+              />
             </div>
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left">ID</TableCell>
-                    <TableCell align="left">Course Name</TableCell>
-                    <TableCell align="left">Course Type</TableCell>
-                    <TableCell align="left">Teacher</TableCell>
-                    <TableCell align="left">Rating</TableCell>
-                    <TableCell align="left">Action</TableCell>
-                  </TableRow>
-                </TableHead>
-                {loading ? (
-                  <Skeleton />
-                ) : (
-                  <TableBody>
-                    {usersOnCurrentPage?.map((user, index) => (
-                      <TableRow
-                        key={user?.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {startIndex + index + 1}
-                        </TableCell>
-                        <TableCell align="left">{user?.courseName}</TableCell>
-                        <TableCell align="left">{user?.courseType}</TableCell>
-                        <TableCell align="left">
-                          {user?.user_username}
-                        </TableCell>
-                        <TableCell align="left">
-                          <Rate allowHalf defaultValue={user?.rate} />
-                        </TableCell>
-                        <TableCell>
-                          <Button onClick={() => handleDeleteCourse(user?.id)}>
-                            Xóa
-                          </Button>
-                          <Button onClick={() => handleOpenModal(user)}>
-                            Chỉnh sửa
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleOpenModalDetail}
-                          >
-                            Thêm mới chi tiết khóa họcc
-                          </Button>
-                          {/* Modal thêm mới chi tiết khóa học */}
-                          <CourseDetailFormModal
-                            open={openModalDetail}
-                            handleClose={handleCloseModalDetail}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                )}
-              </Table>
-            </TableContainer>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              color="primary"
-              shape="rounded"
-              size="large"
-            />
+
             <Modal
               open={openModal}
               onClose={handleCloseModal}
@@ -482,7 +632,7 @@ const ListCourse = () => {
                   p: 4,
                 }}
               >
-                <h2>Chỉnh sửa khóa học</h2>
+                <h2>Edit Course</h2>
                 <form>
                   <TextField
                     label="ID khóa học"
@@ -519,11 +669,11 @@ const ListCourse = () => {
                     variant="outlined"
                     sx={{ marginBottom: "10px" }}
                   >
-                    <InputLabel>Loại khóa học</InputLabel>
+                    <InputLabel>Course Type</InputLabel>
                     <Select
                       value={courseToUpdate.courseType}
                       onChange={handleCourseTypeChange}
-                      label="Loại khóa học"
+                      label="Course Type"
                     >
                       <MenuItem value="Programing">Programing</MenuItem>
                       <MenuItem value="Design">Design</MenuItem>
@@ -537,7 +687,7 @@ const ListCourse = () => {
                     color="primary"
                     onClick={handleUpdateCourse}
                   >
-                    Cập nhật
+                    Edit
                   </Button>
                 </form>
               </Box>

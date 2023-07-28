@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Col, Row } from "antd";
-import Dashboardmain from "../../components/Dashboardmain";
+
 import Dashboardprofile from "../../components/Dashboardprofile";
 import { Footer } from "components/footer";
 import SidebarTutor from "components/SidebarSessions";
+import { Dashboardmain } from "components/Dashboardmain";
+import { DashboardmainforTutor } from "components/Dashboardmain";
 
 const DashboardStyle = styled.div`
   width: 1920px;
@@ -22,7 +24,8 @@ const DashboardTutor = () => {
           <SidebarTutor></SidebarTutor>
         </Col>
         <Col span={14}>
-          <Dashboardmain></Dashboardmain>
+          {/* <Dashboardmain></Dashboardmain> */}
+          <DashboardmainforTutor/>
         </Col>
         <Col span={5}>
           <Dashboardprofile></Dashboardprofile>

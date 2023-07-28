@@ -1,2 +1,3 @@
 import Dashboardmain from "./Dashboardmain";
-export default Dashboardmain;
+import DashboardmainforTutor from "./DashboardmainforTutor";
+export { Dashboardmain ,DashboardmainforTutor } ;

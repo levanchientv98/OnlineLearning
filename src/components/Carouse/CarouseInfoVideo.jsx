@@ -9,13 +9,13 @@ import iconNext from "assets/imageHome/next-icon.svg";
 const CarouselInfoVideo = () => {
   const carouselData = [
     {
-      urlVideo: "https://www.youtube.com/embed/k__gEeVPiLg",
+      urlVideo: "https://www.youtube.com/embed/CS6OePXY2YM",
     },
     {
-      urlVideo: "https://www.youtube.com/embed/k__gEeVPiLg",
+      urlVideo: "https://www.youtube.com/embed/qKMaTSUwTyI",
     },
     {
-      urlVideo: "https://www.youtube.com/embed/k__gEeVPiLg",
+      urlVideo: "https://www.youtube.com/embed/lBuj1zoij6Y",
     },
   ];
 

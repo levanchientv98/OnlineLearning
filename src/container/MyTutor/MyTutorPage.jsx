@@ -136,7 +136,7 @@ const MyTutorPage = () => {
             <HeaderDashBoard></HeaderDashBoard>
             <div className="title">
               {" "}
-              <h2>My tutors</h2>
+              <h2>Teachers</h2>
             </div>
             <div className="tutor-menu">
               <div className="search-tutor-course">
@@ -164,9 +164,9 @@ const MyTutorPage = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Username</TableCell>
-                    <TableCell>Tên người dùng</TableCell>
-                    <TableCell>Số điện thoại</TableCell>
-                    <TableCell>Mô tả</TableCell>
+                    <TableCell>Email Teacher</TableCell>
+                    <TableCell>Phone</TableCell>
+                    <TableCell>Decription</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

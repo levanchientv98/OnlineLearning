@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Col, Row } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Dashboardmain from "../../components/Dashboardmain";
+
 import Dashboardprofile from "../../components/Dashboardprofile";
 import { Footer } from "components/footer";
+import { Dashboardmain } from "components/Dashboardmain";
 
 const DashboardStyle = styled.div`
   width: 1920px;
