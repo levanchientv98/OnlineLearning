@@ -280,6 +280,7 @@ const CourseDetail = () => {
     try {
       const response = await axios.get(`${URLApi}api/v1/courseDetail/${id}`);
       setData(response.data);
+      localStorage.setItem("courseId", response.data.course_course_id);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -295,31 +296,22 @@ const CourseDetail = () => {
   // hàm call api gán course cho user
   const handleEnrollCourse = async () => {
     const userId = localStorage.getItem("id");
+    const courseID = localStorage.getItem("courseId");
     try {
-      if (!enrolled) {
-        // Step 1: Gọi API Post enroll
-        const apiUrl = `${URLApi}api/v1/enroll`;
-        const enrollResponse = await axios.post(apiUrl, {
-          user_user_id: userId,
-          course_course_id: id,
-        });
+      // Step 1: Gọi API Post enroll
+      const apiUrl = `${URLApi}api/v1/enroll`;
+      const enrollResponse = await axios.post(apiUrl, {
+        user_user_id: userId,
+        course_course_id: courseID,
+      });
 
-        if (enrollResponse.status === 200) {
-          setEnrolled(true);
-          toast("Successfully enroll the course");
-          console.log(enrollResponse.data);
-          localStorage.setItem(
-            "courseId",
-            enrollResponse.data.course_course_id
-          );
-        } else {
-          toast("Course registration failed");
-        }
+      if (enrollResponse.status === 200) {
+        setEnrolled(true);
+        toast("Successfully enroll the course");
+        console.log(enrollResponse.data);
+        // localStorage.setItem("courseId", enrollResponse.data.course_course_id);
       } else {
-        // If already enrolled, do nothing or show a message
-        localStorage.removeItem("courseId");
-
-        toast("successfully exited the course");
+        toast("Course registration failed");
       }
     } catch (error) {
       toast("Enroll failed: Course registration failed", error);

@@ -54,13 +54,13 @@ function App() {
       <Route path="/tutor-login" element={<TutorLogin />} />{" "}
       <Route path="/tutor-reset" element={<TutorReset />} />{" "}
       <Route path="/tutor-forgot" element={<TutorForgot />} />{" "}
-      <Route path="/session" element={<Session />} />{" "}
-      <Route path="/tutor-session" element={<TutorSession />} />{" "}
+      <Route path="/video-call" element={<Session />} />{" "}
+      <Route path="/video-calls" element={<TutorSession />} />{" "}
       <Route path="/my-tutor" element={<MyTutorPage />} />{" "}
       <Route path="/edit-student" element={<SettingStudent />} />{" "}
       <Route path="/purchase-history" element={<PurchaseHistory />} />{" "}
       <Route path="/list-course" element={<ListCourse />} />{" "}
-      <Route path="/video-call" element={<VideoCall />} />{" "}
+      <Route path="/video-call1" element={<VideoCall />} />{" "}
       <Route path="/start-sessions" element={<StartSessions />} />{" "}
     </Routes>
   );

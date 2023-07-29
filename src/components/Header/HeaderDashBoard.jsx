@@ -164,7 +164,8 @@ const HeaderDashBoard = () => {
   const userType = localStorage.getItem("userType");
   const avatar = localStorage.getItem("avatar");
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
   };
 
   const content = (

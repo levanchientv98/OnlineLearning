@@ -7,6 +7,56 @@ import {
 } from "@videosdk.live/react-sdk";
 import { authToken, createMeeting } from "api/API.js";
 import ReactPlayer from "react-player";
+import { styled } from "styled-components";
+import { Button, Input } from "antd";
+
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  .create-room {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .input-style {
+    width: 250px;
+  }
+  .btn-join {
+    width: 100px;
+    span {
+      font-family: "Poppins", sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+  .title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h3 {
+      font-size: 20px;
+    }
+
+    .btn-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .title2 {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+`;
 
 const JoinScreen = ({ getMeetingAndToken }) => {
   const [meetingId, setMeetingId] = useState(null);
@@ -14,18 +64,32 @@ const JoinScreen = ({ getMeetingAndToken }) => {
     await getMeetingAndToken(meetingId);
   };
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Enter Meeting Id"
-        onChange={(e) => {
-          setMeetingId(e.target.value);
-        }}
-      />
-      <button onClick={onClick}>Join</button>
-      {" or "}
-      <button onClick={onClick}>Create Meeting</button>
-    </div>
+    <StyledDiv>
+      <div className="create-room">
+        <Input
+          size="large"
+          className="input-style"
+          type="text"
+          placeholder="Enter Meeting Id"
+          onChange={(e) => {
+            setMeetingId(e.target.value);
+          }}
+        />
+        <Button
+          size="large"
+          type="primary"
+          ghost
+          className="btn-join"
+          onClick={onClick}
+        >
+          Join
+        </Button>
+        <span className="title">OR</span>
+        <Button size="large" type="primary" onClick={onClick}>
+          Create Meeting
+        </Button>
+      </div>
+    </StyledDiv>
   );
 };
 
@@ -62,7 +126,7 @@ const ParticipantView = (props) => {
 
   return (
     <div>
-      <p>
+      <p className="title2">
         Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic:{" "}
         {micOn ? "ON" : "OFF"}
       </p>
@@ -94,10 +158,16 @@ const Controls = () => {
   // Implement the UI for meeting controls
   const { leave, toggleMic, toggleWebcam } = useMeeting();
   return (
-    <div>
-      <button onClick={() => leave()}>Leave</button>
-      <button onClick={() => toggleMic()}>toggleMic</button>
-      <button onClick={() => toggleWebcam()}>toggleWebcam</button>
+    <div className="btn-controls">
+      <Button size="middle" type="primary" ghost onClick={() => leave()}>
+        Leave
+      </Button>
+      <Button size="middle" type="primary" ghost onClick={() => toggleMic()}>
+        Mic
+      </Button>
+      <Button size="middle" type="primary" ghost onClick={() => toggleWebcam()}>
+        Webcam
+      </Button>
     </div>
   );
 };
@@ -122,24 +192,33 @@ const MeetingView = (props) => {
   };
 
   return (
-    <div className="container">
-      <h3>Meeting Id: {props.meetingId}</h3>
-      {joined && joined === "JOINED" ? (
-        <div>
-          <Controls />
-          {[...participants.keys()].map((participantId) => (
-            <ParticipantView
-              participantId={participantId}
-              key={participantId}
-            />
-          ))}
-        </div>
-      ) : joined && joined === "JOINING" ? (
-        <p>Joining the meeting...</p>
-      ) : (
-        <button onClick={joinMeeting}>Join</button>
-      )}
-    </div>
+    <StyledDiv>
+      <div className="container">
+        <h3>Meeting Id: {props.meetingId}</h3>
+        {joined && joined === "JOINED" ? (
+          <div>
+            <Controls />
+            {[...participants.keys()].map((participantId) => (
+              <ParticipantView
+                participantId={participantId}
+                key={participantId}
+              />
+            ))}
+          </div>
+        ) : joined && joined === "JOINING" ? (
+          <p>Joining the meeting...</p>
+        ) : (
+          <Button
+            size="large"
+            type="primary"
+            className="btn-join"
+            onClick={joinMeeting}
+          >
+            Join
+          </Button>
+        )}
+      </div>
+    </StyledDiv>
   );
 };
 

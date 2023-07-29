@@ -266,7 +266,9 @@ const Header = () => {
   const avatar = localStorage.getItem("avatar");
   const userType = localStorage.getItem("userType");
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
+
     navigate("/");
   };
 

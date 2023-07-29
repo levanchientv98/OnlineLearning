@@ -5,7 +5,7 @@ import { NavLink, Link } from "react-router-dom";
 import { ReactComponent as Logo1 } from "assets/imgDashboard/icon-dashboard.svg";
 import { ReactComponent as Logo } from "../../icon/logo.svg";
 import { ReactComponent as Logo2 } from "../../icon/logomess.svg";
-import { ReactComponent as Logo3 } from "../../icon/logosessions.svg";
+import { ReactComponent as Logo3 } from "assets/imgDashboard/videocall.svg";
 import { ReactComponent as Student } from "assets/Pictures/people.svg";
 import { ReactComponent as Assign } from "assets/Pictures/format_list_numbered_rtl.svg";
 import { ReactComponent as Wallet } from "assets/Pictures/account_balance_wallet.svg";
@@ -27,6 +27,7 @@ const SidebarStyle = styled.div`
   }
   .nav-item {
     display: flex;
+    align-items: center;
     gap: 30px;
     p {
       margin: 0;
@@ -85,6 +86,10 @@ const SidebarStyle = styled.div`
       color: rgba(246, 110, 110, 1);
     }
   }
+  .icon-size {
+    width: 21px;
+    height: 30px;
+  }
 `;
 
 const SidebarTutor = () => {
@@ -115,13 +120,13 @@ const SidebarTutor = () => {
           <p>Messages</p>
         </NavLink>
         <NavLink
-          to="/tutor-session"
+          to="/video-calls"
           className="nav-item"
           exact="true"
           activeclassname="active"
         >
-          <Logo3></Logo3>
-          <p>Sessions</p>
+          <Logo3 className="icon-size"></Logo3>
+          <p>Video Call</p>
         </NavLink>
 
         <NavLink

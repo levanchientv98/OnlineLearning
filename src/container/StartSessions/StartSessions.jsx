@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import { ReactComponent as Logo1 } from "assets/imgDashboard/icon-dashboard.svg";
 import { ReactComponent as Logo } from "../../icon/logo.svg";
 import { ReactComponent as Logo2 } from "../../icon/logomess.svg";
-import { ReactComponent as Logo3 } from "../../icon/logosessions.svg";
+import { ReactComponent as Logo3 } from "assets/imgDashboard/videocall.svg";
 import { ReactComponent as Logo4 } from "../../icon/logopurchase.svg";
 import { ReactComponent as Logo5 } from "../../icon/logotutors.svg";
 import source from "assets/Pictures/Group 1000005293.svg";
@@ -173,6 +173,10 @@ const SidebarStyle = styled.div`
       margin-top: 60px;
     }
   }
+  .icon-size {
+    width: 21px;
+    height: 30px;
+  }
 `;
 
 const StartSessions = () => {
@@ -227,7 +231,7 @@ const StartSessions = () => {
             <Logo1></Logo1>
           </NavLink>
           <NavLink
-            to="/messages"
+            to="/student-messages"
             className="nav-item"
             exact="true"
             activeclassname="active"
@@ -240,7 +244,7 @@ const StartSessions = () => {
             exact="true"
             activeclassname="active"
           >
-            <Logo3></Logo3>
+            <Logo3 className="icon-size"></Logo3>
           </NavLink>
           <NavLink
             to="/purchase-history"

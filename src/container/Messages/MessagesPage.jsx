@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Col, Row } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { HeaderDashBoard } from "components/Header";
-import { NavLink } from "react-router-dom";
+import ChatUser from "components/ChatUser";
 
 const DashboardStyle = styled.div`
   width: 1920px;
@@ -14,6 +14,7 @@ const MessagesStyle = styled.div`
   display: flex;
   flex-direction: column;
   padding: 50px 0 0 40px;
+  margin-bottom: 50px;
 
   .title {
     width: 95%;
@@ -84,31 +85,8 @@ const MessagesPage = () => {
           <MessagesStyle>
             {" "}
             <HeaderDashBoard></HeaderDashBoard>
-            <div className="title">
-              {" "}
-              <h2>Messages</h2>
-            </div>
-            <div className="messages-menu">
-              <NavLink
-                to="/messages"
-                className="nav-item"
-                exact="true"
-                activeclassname="active"
-              >
-                <p>Chat</p>
-                <div className="borderBT"></div>
-              </NavLink>
-              <NavLink
-                to="/messages/contacts"
-                className="nav-item"
-                exact="true"
-                activeclassname="active"
-              >
-                <p>Contacts</p>
-                <div className="borderBT"></div>
-              </NavLink>
-            </div>
-          </MessagesStyle>
+          </MessagesStyle>{" "}
+          <ChatUser></ChatUser>
         </Col>
       </Row>
     </DashboardStyle>

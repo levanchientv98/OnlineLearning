@@ -313,7 +313,7 @@ const ListCourse = () => {
       course_course_id: courseToUpdate.id,
       courseDetailName: courseToUpdate.courseName,
       description: "",
-      about: "1234",
+      about: "",
     });
     console.log("about", newCourseDetail);
 
@@ -398,7 +398,7 @@ const ListCourse = () => {
           />
           <Button
             variant="contained"
-            color="primary"
+            type="primary"
             onClick={handleAddCourseDetail}
           >
             Add new course detail
@@ -425,6 +425,7 @@ const ListCourse = () => {
         [name]: value,
       }));
     };
+    console.log("newVideo:", newVideo); // Add this line to log the state after the update
 
     const handleAddVideo = async () => {
       try {
@@ -684,7 +685,8 @@ const ListCourse = () => {
                   </FormControl>
                   <Button
                     variant="contained"
-                    color="primary"
+                    type="primary"
+                    size="middle"
                     onClick={handleUpdateCourse}
                   >
                     Edit
