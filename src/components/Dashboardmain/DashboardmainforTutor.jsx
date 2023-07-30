@@ -6,11 +6,11 @@ import { ReactComponent as LogoRank2 } from "../../icon/iconrank2.svg";
 import { ReactComponent as LogoRank3 } from "../../icon/iconrank3.svg";
 import { ReactComponent as LogoRank4 } from "../../icon/iconrank4.svg";
 import Dashboardslide from "../../components/Dashboardslide";
-import { ProfileDashboard } from "components/ProfileDashboard";
 import { HeaderDashBoard } from "components/Header";
 import { ProfileDashboardforTutor } from "components/ProfileDashboard";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { URLApi } from "api/urlApi";
 
 const DashboadrStyled = styled.div`
   margin-top: 50px;
@@ -190,7 +190,7 @@ const DashboardmainforTutor = () => {
   useEffect(() => {
     const getUserData = async (userId) => {
       try {
-        const apiUrl = `http://localhost:8080/api/v1/user/${userId}`; // Replace with your API endpoint
+        const apiUrl = `${URLApi}api/v1/user/${userId}`; // Replace with your API endpoint
         const token = localStorage.getItem("token"); // Assuming the token key is stored in the "token" key in localStorage
 
         const response = await axios.get(apiUrl, {
@@ -219,7 +219,7 @@ const DashboardmainforTutor = () => {
           {new Date().toLocaleDateString("en-US", DATE_OPTIONS)}
         </p>
         {/* <ProfileDashboard /> */}
-        <ProfileDashboardforTutor/>
+        <ProfileDashboardforTutor />
       </First>
       <Dashboardslide></Dashboardslide>
       <BestTutor>
